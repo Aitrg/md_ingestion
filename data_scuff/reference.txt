@@ -1,0 +1,114 @@
+
+Create spider
+
+Custom: Displaying all headers
+
+scrapy createSpider ticket_no requirement_excel_with_path --custom
+eg:
+use command: scrapy createSpider AI_1212 /Users/imac/python/REQUIREMENT/Inspection_Food_CO_El_Paso.xlsx --custom
+
+default: Not displayed headers 
+
+Use command: scrapy createSpider AI_1212 /Users/imac/python/REQUIREMENT/Inspection_Food_CO_El_Paso.xlsx
+=============================================================================
+Custom file name ex:  refer AI-86
+
+Utils.getCustomFileName('PA_Erie_CurationReady', '{}_{}'.format('20050101_', datetime.datetime.today().strftime('%Y%m%d')), 'v1')
+=============================================================================
+Replace the value use this command ex: refer AI-340
+
+custom_settings = {
+        'REPLACE_VALUES':{'permit_lic_value':[
+                    {'value':'$0.00', 'replace':""},
+                    {'value':'$0.0', 'replace':""},
+                    {'value':'$0', 'replace':""}]},
+    }
+=============================================================================
+Selinium ex: refer AI-8(There is no need to use click, sleep command in default), AI-42,209(With sleep and click)
+
+If you use run_headless=False chrome is visible, if you use run_headless=True chrome is not visible 
+
+If you want to change Seleinium path in settings.py
+
+Selinium with scrapy refer AI-8
+
+=============================================================================
+Pipeline: No need to replace pipeline it's default removing
+=============================================================================
+
+Proxy setting completed in scrapy randomly selected (pending in selenium)
+
+If you want set custom proxy: Use below ex.
+custom_settings = {
+	'CUSTOM_PROXY_URL':'http://data827:cubes38@149.115.189.71:8888',
+	}
+=============================================================================
+If you want address city and zip code with sapce
+
+use command: self.format_address(address, city, _zip)
+use command: self.format__address(address1, address2, city, _zip)
+=============================================================================
+Check duplicate in linux and mac
+
+filename: use with location ex: /Users/imac/Desktop/Inspections_Food_CO_Jefferson_CurationReady_20180727_v1.csv
+output_filename ex:  /Users/imac/Desktop/Inspections_Food_CO_Jefferson_CurationReady_20180727_v122_.csv
+
+use command: cat <filename> | sort -t '|' <filename> | uniq > <output_filename>
+=============================================================================
+Clear cache/storage/temp/all
+
+use command: scrapy clear
+
+There displaying all commands in Options
+
+eg: scrapy clear --Cache
+============================================================================
+Custom setting: If u want anything change settings change custom_settings 
+custom_settings = {
+	'COOKIES_ENABLED':True,
+	'COOKIES_DEBUG':True,
+	'HTTPCACHE_ENABLED':False,
+	'DOWNLOAD_DELAY':0.5,
+	'CONCURRENT_REQUESTS': 16,
+	'CONCURRENT_REQUESTS_PER_IP' :10,
+	'RANDOM_PROXY_DISABLED': True,
+	'CONCURRENT_ITEMS':1,
+	'CUSTOM_PROXY_URL':'http://data827:cubes38@149.115.189.71:8888',
+	'JOBDIR' : CustomSettings.getJobDirectory('spider_name'),
+	'DOWNLOADER_MIDDLEWARES' : CustomSettings.appenDownloadMiddlewarevalues({
+            'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+            'Data_scuff.middleware.common.TooManyRequestsRetryMiddleware': 543,
+            }),
+    "PROXY_MODE":0, 
+	}
+=============================================================================
+
+download_folder = os.path.expanduser("~")+"/Downloads/"
+current_file_path = os.path.abspath(os.path.dirname(__file__))
+
+=============================================================================
+Drop duplicate:
+custom_settings = {
+	'ITEM_PIPELINES':CustomSettings.appenAndgetItemPipelinevalues({
+	            'Data_scuff.pipeline.common.DropDuplicateItemPipeline':1
+	            })
+    }
+=============================================================================
+def __init__(self, start='', end=''):
+        self.start = start
+        self.end = end
+
+scrapy crawl il_yellow_pages -a start=AI -a end=BB
+
+from Data_scuff.utils.searchCriteria import SearchCriteria
+for key in SearchCriteria.strRange('A', 'J'):
+    print(key)
+
+print(SearchCriteria.dateRange(20161011, 20180101,freq='3M')) => 3 month
+print(SearchCriteria.dateRange(self.start, self.end, freq='1D', formatter='%m/%d/%Y')) => 1 day
+print(SearchCriteria.numberRange(0000, 9999,3))
+
+When u run
+scrapy crawl fl_okaloosa_buildingpermits -a start=YYYYMMDD -a end=YYYYMMDD
+
+=============================================================================

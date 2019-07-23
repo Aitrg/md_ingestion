@@ -1,0 +1,29 @@
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20050101 -a end=20051231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20070101 -a end=20071231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20090101 -a end=20091231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20110101 -a end=20111231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20120101 -a end=20121231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20130101 -a end=20131231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20140101 -a end=20141231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20150101 -a end=20151231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20160101 -a end=20161231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20170101 -a end=20171231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20180101 -a end=20181231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20190101 -a end=20191231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20050101 -a end=20051231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20050101 -a end=20051231
+
+scrapy crawl 1410_il_cook_evanston_building_permits -a start=20050101 -a end=20051231

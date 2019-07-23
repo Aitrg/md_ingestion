@@ -1,0 +1,211 @@
+# -*- coding: utf-8 -*-
+
+'''
+Created on 2018-Aug-21 07:12:09
+TICKET NUMBER -AI_127
+@author: ait-python
+'''
+import scrapy
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import MapCompose
+from w3lib.html import remove_tags, replace_escape_chars
+from Data_scuff.spiders.AI_127.items import FlHighlandsBuildingPermitsSpiderItem
+from Data_scuff.spiders.__common import CommonSpider,CustomSettings
+from Data_scuff.utils.utils import Utils
+import re
+import time
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.common.exceptions import NoSuchElementException
+# from pathlib import Path
+# from selenium import webdriver
+# from lxml import etree
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.action_chains import ActionChains
+# import os
+# import time
+import re
+# from selenium.webdriver.support.select import Select
+
+class FlHighlandsBuildingPermitsSpider(CommonSpider):
+    name = 'fl_highlands_building_permits'
+    allowed_domains = ['permits.hcbcc.org']
+    start_urls=['http://permits.hcbcc.org/eGovPlus90/permit/perm_status.aspx']
+    main_url='http://permits.hcbcc.org/eGovPlus90/permit/perm_status_res.aspx'
+    start_url1='http://permits.hcbcc.org/eGovPlus90/permit/permit_all.aspx?permit_no='
+    main_url1='http://permits.hcbcc.org/eGovPlus90/permit/'
+    custom_settings = {
+        'FILE_NAME':Utils.getRundateFileName('Permits_Buildings_FL_Highlands_CurationReady'),
+        'DOWNLOAD_DELAY':0.3,
+        'JIRA_ID':'AI_127',
+        'COOKIES_ENABLED':True,
+        'COOKIES_DEBUG':True,
+        'HTTPCACHE_ENABLED':False,
+        # 'CONCURRENT_REQUESTS':1,
+        'TOP_HEADER':{   'applied value': 'Applied Value',
+                         'balance due': 'Balance Due',
+                         'c-404 type': 'C-404 Type',
+                         'c.o. issued': 'C.O. Issued',
+                         'c.o. number': 'C.O. Number',
+                         'calculated value': 'Calculated Value',
+                         'confirm': 'CONFIRM',
+                         'contractor id': 'Contractor ID',
+                         'contractor_address_string': 'CONTRACTOR Address + City/State/Zip',
+                         'contractor_lic_exp_date': 'License Expires',
+                         'contractor_lic_no': 'Contractor License Number',
+                         'contractor_lic_status': 'Contractor  Status',
+                         'contractor_lic_type': '',
+                         'contractor_person': 'Contractor Owner',
+                         'contractor_phone': 'Contractor Phone',
+                         'inspection_date': 'INSP DATE',
+                         'inspection_id': 'NUM',
+                         'inspection_pass_fail': 'RES',
+                         'inspection_subtype': 'TYPE',
+                         'inspection_type': '',
+                         'inspector': 'INSPECTOR',
+                         # 'inspector_comments': 'NOTES',
+                         'insurance expires': 'Insurance Expires',
+                         'line_of_business': '',
+                         'location_address_string': 'Property Address+ City/State/Zip',
+                         'master number': 'Master Number',
+                         'miscellaneous information / notes': 'MISCELLANEOUS INFORMATION / NOTES',
+                         'mixed_contractor_name': 'CONTRACTOR ',
+                         'mixed_name': 'Owner On Permit Name/ Applicant Name',
+                         'mixed_subtype': '',
+                         'number_of_units': 'Units',
+                         'operator': 'Operator',
+                         'permit_applied_date': 'Application Date',
+                         'permit_lic_eff_date': 'Issued Date',
+                         'permit_lic_fee': 'TOTAL FEES',
+                         'permit_lic_no': 'Permit Number',
+                         'permit_lic_status': 'Status',
+                         'permit_subtype': 'Permit Type',
+                         'permit_type': '',
+                         'person_address_string': 'Owner On Permit Address + City/State/Zip/Applicant Address',
+                         'pol_exp_date': 'Work Comp Expires',
+                         'policy_number': 'State Reg',
+                         'project number': 'Project Number',
+                         'strap nbr': 'STRAP NBR',
+                         'total paid to date': 'TOTAL PAID TO DATE',
+                         'usage class': 'Usage Class'},
+
+        'FIELDS_TO_EXPORT':['permit_lic_no', 'permit_lic_status', 'permit_subtype', 'location_address_string', 'strap nbr', 'balance due', 'permit_applied_date', 'permit_lic_eff_date', 'master number', 'c.o. number', 'c.o. issued', 'c-404 type', 'applied value', 'calculated value', 'operator', 'project number', 'usage class', 'number_of_units', 'miscellaneous information / notes', 'permit_lic_fee', 'total paid to date', 'mixed_name', 'person_address_string', 'mixed_subtype', 'contractor id', 'contractor_lic_no', 'mixed_contractor_name', 'contractor_address_string', 'contractor_phone', 'contractor_person', 'contractor_lic_exp_date', 'pol_exp_date', 'line_of_business', 'insurance expires', 'policy_number', 'contractor_lic_status', 'contractor_lic_type', 'inspection_type', 'inspection_subtype', 'inspection_id', 'inspector', 'inspection_date', 'inspection_pass_fail', 'confirm', 'permit_type', 'sourceName', 'url', 'ingestion_timestamp'],
+        #'confirm', 'inspector_comments', 'permit_type', 'sourceName', 'url', 'ingestion_timestamp'
+             
+        'NULL_HEADERS':['calculated value', 'total paid to date', 'operator', 'c.o. issued', 'project number', 'applied value', 'inspector', 'contractor id', 'master number', 'balance due', 'usage class', 'strap nbr', 'insurance expires', 'c.o. number', 'confirm', 'miscellaneous information / notes', 'c-404 type']
+        }
+
+    url=[]
+    # main_url1=''
+    search_param = ''
+    items = {}
+    lists = []
+
+
+    def parse(self,response):
+        import csv
+        path=r'/Users/imac/Downloads/Permits_Buildings_FL_Highlands_CurationReady_20181004_v12.csv'
+        with open(path, errors='ignore') as csvfile:
+            readCSV = csv.reader(csvfile, delimiter='|')
+            count=0
+            for row in readCSV:
+
+                count=count+1
+                if count>2:
+                    if row[22] == None:
+                        row[22] = 'FL'
+
+                    row[22] = re.sub('\s+','', str(row[22]))
+
+                    if row[22] == '':
+                        row[22] = 'FL'
+
+                    if row[22] == ' ':
+                        row[22] = 'FL'
+
+                    if row[22] == '  ':
+                        row[22] = 'FL'
+
+                    if row[22] == '   ':
+                        row[22] = 'FL'
+
+                    if row[22] == '    ':
+                        row[22] = 'FL'
+
+                    if row[22] == '     ':
+                        row[22] = 'FL'
+
+                    if 'LAKE PLACID' in row[3]:
+                        row[3] = row[3].replace('LAKE PLACID', ', LAKE PLACID')
+
+                    if 'SEBRING' in row[3]:
+                        row[3] = row[3].replace('SEBRING', ', SEBRING')
+
+                    if 'LORIDA' in row[3]:
+                        row[3] = row[3].replace('LORIDA', ', LORIDA')
+
+                    if 'AVON PARK' in row[3]:
+                        row[3] = row[3].replace('AVON PARK', ', AVON PARK')
+
+                    if 'VENUS' in row[3]:
+                        row[3] = row[3].replace('VENUS', ', VENUS')
+
+                    il = ItemLoader(item=FlHighlandsBuildingPermitsSpiderItem())
+                    il.add_value('permit_lic_no', str(row[0]))
+                    il.add_value('permit_lic_status', str(row[1]))
+                    il.add_value('permit_subtype', str(row[2]))
+                    il.add_value('location_address_string', str(row[3]))
+                    il.add_value('strap nbr', str(row[4]))
+                    il.add_value('balance due', str(row[5]))
+                    il.add_value('permit_applied_date', str(row[6]))
+                    il.add_value('permit_lic_eff_date', str(row[7]))
+                    il.add_value('master number', str(row[8]))
+                    il.add_value('c.o. number', str(row[9]))
+                    il.add_value('c.o. issued', str(row[10]))
+                    il.add_value('c-404 type', str(row[11]))
+                    il.add_value('applied value', str(row[12]))
+                    il.add_value('calculated value', str(row[13]))
+                    il.add_value('operator', str(row[14]))
+                    il.add_value('project number', str(row[15]))
+                    il.add_value('usage class', str(row[16]))
+                    il.add_value('number_of_units', str(row[17]))
+                    il.add_value('miscellaneous information / notes', str(row[18]))
+                    il.add_value('permit_lic_fee', str(row[19]))
+                    il.add_value('total paid to date', str(row[20]))
+                    il.add_value('mixed_name', str(row[21]))
+                    il.add_value('person_address_string', str(row[22]))
+                    il.add_value('mixed_subtype', str(row[23]))
+                    il.add_value('contractor id', str(row[24]))
+                    il.add_value('contractor_lic_no', str(row[25]))
+                    il.add_value('mixed_contractor_name',str(row[26]))
+                    il.add_value('contractor_address_string', str(row[27]))
+                    il.add_value('contractor_phone', str(row[28]))
+                    il.add_value('contractor_person', str(row[29]))
+                    il.add_value('contractor_lic_exp_date', str(row[30]))
+                    il.add_value('pol_exp_date', str(row[31]))
+                    il.add_value('line_of_business', str(row[32]))
+                    il.add_value('insurance expires', str(row[33]))
+                    il.add_value('policy_number', str(row[34]))
+                    il.add_value('contractor_lic_status', str(row[35]))
+                    il.add_value('contractor_lic_type', str(row[36]))
+                    il.add_value('inspection_type', str(row[37]))
+                    il.add_value('inspection_subtype', str(row[38]))
+                    il.add_value('inspection_id', str(row[39]))
+                    il.add_value('inspector', str(row[40]))
+                    il.add_value('inspection_date', str(row[41]))
+                    il.add_value('inspection_pass_fail',str(row[42]))
+                    il.add_value('confirm', str(row[43]))
+                    # il.add_value('inspector_comments', str(row[44]))
+                    il.add_value('permit_type', str(row[44]))
+                    il.add_value('sourceName', str(row[45]))
+                    il.add_value('url', str(row[46]))
+                    il.add_value('ingestion_timestamp', Utils.getingestion_timestamp())
+                    
+                    # il.add_value('permit_type', 'building_permit')
+                    # il.add_value('ingestion_timestamp', Utils.getingestion_timestamp())
+                    # il.add_value('sourceName', 'OH_Brown_Building_Permits')
+                    # il.add_value('url', 'http://brownauditor.ddti.net/Search.aspx')
+
+                    yield il.load_item()

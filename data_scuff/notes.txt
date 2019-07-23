@@ -1,0 +1,330 @@
+
+find . -name "*.pyc" -exec rm -f {} \;    delete 328 output.log
+
+586(download) = SBLD19-20320,  19TMP-001556
+csv_writer = https://realpython.com/python-csv/
+             http://stanford.edu/~mgorkove/cgi-bin/rpython_tutorials/Writing_Data_to_a_CSV_With_Python.php (816)
+
+==========================================================================================
+def __init__(self, start=None, end=None,startnum=None,endnum=None, proxyserver=None, *a, **kw):
+    super(MnRamseyRosevilleBuildingPermitsSpider, self).__init__(start,end, proxyserver=None,*a, **kw)
+    # if start and startnum:
+    #     self.searchkeys = SearchCriteria.numberRange(startnum,endnum,1) + SearchCriteria.strRange(start,end)
+    # elif start:
+    #     self.searchkeys = SearchCriteria.strRange(start,end)
+    # elif startnum:
+    #     self.searchkeys = SearchCriteria.numberRange(startnum,endnum,1)
+
+    import csv
+    import os
+    current_file_path = os.path.abspath(os.path.dirname(__file__))+'/AI_816_permit_no_list_{}_{}.csv'.format(self.start, self.end)
+    self.csv = open(current_file_path, "w") 
+    columnTitleRow = "permit_lic_no, permit_lic_status, permit_subtype, permit_lic_exp_date, date, permit_lic_desc, loc_addr, href_url\n"
+    self.csv.write(columnTitleRow)
+
+csv_row = str(app_no) + "," + str(permit_status) + "," +str(permit_type) + "," + str(Expiration_date) + "," + str(date) + "," + str(permit_lic_desc) + "," + str(location_address_string) + "," + str(link_url) + "\n"
+self.csv.write(csv_row)
+
+===========================================================================================
+from Data_scuff.utils.searchCriteria import SearchCriteria
+number_range = SearchCriteria.numberRange(self.start,self.end,1)
+char_range = SearchCriteria.strRange(start,end)
+date_range = SearchCriteria.dateRange(self.start,self.end, freq='2D', formatter='%m/%d/%Y')
+
+from inline_requests import inline_requests
+from scrapy.shell import inspect_response
+inspect_response(response,self)
+===========================================================================================
+pagination: 594
+
+inline-request: 522, 487, 177, 352, 549, 93
+
+json feed: 268, 352, 284
+
+excel feed: 112
+
+from_response dont click method: 522
+
+iframe: 484
+
+iframe selenium: 483
+
+view_state_hidden: 470
+
+4 format : 546
+
+request payload and json: 605, 549
+
+google captcha: 251
+
+accela: 432, 447, 676, 639, 728, 595, 355, 336, 334(a to z)
+
+bsa-online: 376, 389
+
+xml: 690
+
+pdf: 82, 82, 247, 547(one to many)
+
+tabula: 325
+
+pdfquery: 343
+
+dba: 349
+
+d-g, FAST_CLIENT_WHEN__ : 978
+============================================================================================
+accela 122: 10 days different:
+
+import datetime
+if self.check_first:
+    self.check_first = False
+
+    self.search_element = SearchCriteria.dateRange(self.start,self.end, freq='10D', formatter='%m/%d/%Y')
+    end_datee = datetime.datetime.strptime(self.end, '%Y%m%d').strftime('%m/%d/%Y')
+    self.search_element.append(end_datee)
+    end_date = self.search_element.pop(0)
+
+
+if len(self.search_element) > 0:
+    start_date = end_date
+    end_date = self.search_element.pop(0)
+
+    date_1 = datetime.datetime.strptime(start_date, "%m/%d/%Y")
+    start_date_1 = date_1 + datetime.timedelta(days=1)
+    start_date = start_date_1.strftime('%m/%d/%Y')
+============================================================================================
+Pagination sample:
+
+next_page = response.xpath('//*[@id="pagcontent"]/ul/li[contains(.,"Next")]/a/@href').extract_first()
+
+next_page = response.xpath('//*[@id="pagingcontrols"]/li[@class="current"]/following-sibling::li[1]/a/@href').extract_first()
+next_page = response.xpath('//*[@id="ContentPlaceHolder1_dtgResults"]/tr[@align="center"]/td/span/following-sibling::a/text()').extract_first()
+next_page = response.xpath('//td[@colspan="5"]/table/tr/td[contains(span, "'+str(val)+'")]/following-sibling::td/a/@href').extract_first()
+next_page = response.xpath('//*[@id="cBody_GridView1"]/tr/td/table/tr/td['+str(int(val)+1)+']/a/@href').extract_first()
+
+comp_subtype = response.xpath("//*[contains(text(),'Est. Type')]/following-sibling::node()").extract()[1]
+
+next_page = response.xpath("//table[@class='telerik-reTable-1']/tr[2]//u[contains(text(), 'Next Page')]/ancestor::strong/ancestor::a/@href").extract_first()
+
+//table[contains(tbody/tr/td,'I am the Contractor.')]/tbody/tr/td[not(contains(text(),'Business Name'))][contains(text(),'Name')]/following-sibling::td[1]/font/i/text()
+
+============================================================================================
+"normalize-space(//strong[contains(text(), 'Address:')]/following-sibling::node())"
+
+self.year_end  = datetime.datetime.strptime(self.end, '%Y%m%d').strftime('%d/%m/%Y')
+
+=========================================================================================
+>>> url="www.example.com/thedubaimall"
+>>> url.partition(".com/")[2]
+'thedubaimall'
+
+=========================================================================================
+removing dublicate(mac and unix):
+
+cat <filename> | sort -t '|' <filename> | uniq > <output_filename>
+
+cat /Users/imac/workspace/Permits_Buildings_FL_Collier_CurationReady_20181006_v1.csv | sort -t '|' /Users/imac/workspace/Permits_Buildings_FL_Collier_CurationReady_20181006_v1.csv | uniq > /Users/imac/workspace/Permits_Buildings_FL_Collier_CurationReady_20181006_v2.csv
+
+=========================================================================================
+regression function:
+
+regex = re.compile('^[A-Z]\d{6}$')
+possibles = ['R142389', 'hello', 'J123456']
+for line in possibles:
+    if regex.match(line):
+        print(line)
+
+output:R142389
+J123456
+
+re.search('inspID=(.+?)&',insp_url).group(1)
+
+re.findall('var facunid = "(.+?)"', response.text)
+
+for date  corrected_date = re.search(r'\d{1,2}-\w+-\d{1,4}', corrected_dates[row])  
+
+re.sub('\s+', ' ', string_name)
+
+pages=re.sub('1 of ', '',page_number)
+
+re.split("dba", Viswa Dba Nathan, flags=re.IGNORECASE) => Viswa, Nathan
+
+re.match("^[A-Za-z0-9_-]*$", alnum_var): => working AW48732 or AW48732HD
+
+re.match('^[a-zA-Z0-9]^\w+$', alnum_var): => only working AW48732
+
+if 'dba' in company or 'DBA' in company or 'D/B/A' in company or 'd/b/a' in company: #(ref 767)
+    con_com_list = re.split("dba", company, flags=re.IGNORECASE)
+=========================================================================================
+for and if in single line:
+
+elem = self.driver.find_element_by_link_text("Details")
+            data_meta['det_id'] = elem.get_attribute("id")
+//div[contains(.,'Hello Justin')]
+
+vio_comment = ''.join(str(re.sub('\s+', ' ', remove_tags(des))) for des in vio_comment_list)
+
+tab_head = [replace_escape_chars(des).strip() for des in tables_header if len(replace_escape_chars(des)) > 2]
+
+rep_value = [replace_escape_chars(des) for des in item_no if replace_escape_chars(des).isdigit()]
+
+for i, val in enumerate(option_lists): 
+=========================================================================================
+clean html tags:
+
+clean_tags = re.compile('<.*?>')
+desc_list = [re.sub(clean_tags, '', des) for des in comments]
+=========================================================================================
+
+viewstate_generator = response.text.split('__VIEWSTATEGENERATOR|')[1].split('|')[0]
+event_validation = response.text.split('__EVENTVALIDATION|')[1].split('|')[0]
+event_state = response.text.split('__VIEWSTATE|')[1].split('|')[0]
+=========================================================================================
+
+p_val1 = driver.find_element_by_xpath('//*[@id="ext-gen77"]/div['+str(int(div_ind_val) + 1)+']/table/tbody/tr[2]/td[1]/div//p').get_attribute("innerHTML")/ 'value'
+
+=========================================================================================
+html tag remover
+def data_clean(self, value):
+        if value:
+            try:
+                clean_tags = re.compile('<.*?>')
+                desc_list = re.sub('\s+', ' ', re.sub(clean_tags, '', value))
+                desc_list_rep = desc_list.replace('Visit Date : ','').replace('Corrected Date :','').replace('N/A', '').replace('\\','/')
+                return desc_list_rep.strip()
+            except:
+                return ''
+        else:
+            return ''
+=========================================================================================
+search creteria => number and alphabet search
+
+searchkeys = []
+    def __init__(self, start=None, end=None,startnum=None,endnum=None, proxyserver=None, a, *kw):
+        super(FlStatebiddingLicensesSpider, self).__init__(start,end, proxyserver=None,*a, **kw)
+        if start and startnum:
+            self.searchkeys = SearchCriteria.numberRange(startnum,endnum,1) + SearchCriteria.strRange(start,end)
+        elif start:
+            self.searchkeys = SearchCriteria.strRange(start,end)
+        elif startnum:
+            self.searchkeys = SearchCriteria.numberRange(startnum,endnum,1)
+
+super(FlStatebiddingLicensesSpider, self)  => FlStatebiddingLicensesSpider is ur class name
+
+run command:   scrapy crawl fl_statebidding_licenses -a start=a -a end=b -a startnum=1 -a endnum=5
+
+=========================================================================================
+
+Create spider
+
+Custom: Displaying all headers
+
+scrapy createSpider ticket_no requirement_excel_with_path --custom
+eg:
+use command: scrapy createSpider AI_1212 /Users/imac/python/REQUIREMENT/Inspection_Food_CO_El_Paso.xlsx --custom
+
+default: Not displayed headers 
+
+Use command: scrapy createSpider AI_1212 /Users/imac/python/REQUIREMENT/Inspection_Food_CO_El_Paso.xlsx
+=============================================================================
+Custom file name ex:  refer AI-86
+
+Utils.getCustomFileName('PA_Erie_CurationReady', '{}_{}'.format('20050101_', datetime.datetime.today().strftime('%Y%m%d')), 'v1')
+=============================================================================
+Replace the value use this command ex: refer AI-340
+
+custom_settings = {
+        'REPLACE_VALUES':{'permit_lic_value':[
+                    {'value':'$0.00', 'replace':""},
+                    {'value':'$0.0', 'replace':""},
+                    {'value':'$0', 'replace':""}]},
+    }
+=============================================================================
+Selinium ex: refer AI-8(There is no need to use click, sleep command in default), AI-42,209(With sleep and click)
+
+If you use run_headless=False chrome is visible, if you use run_headless=True chrome is not visible 
+
+If you want to change Seleinium path in settings.py
+
+Selinium with scrapy refer AI-8
+
+=============================================================================
+Pipeline: No need to replace pipeline it's default removing
+=============================================================================
+
+Proxy setting completed in scrapy randomly selected (pending in selenium)
+
+If you want set custom proxy: Use below ex.
+custom_settings = {
+	'CUSTOM_PROXY_URL':'http://data827:cubes38@149.115.189.71:8888',
+	}
+=============================================================================
+If you want address city and zip code with sapce
+
+use command: self.format_address(address, city, _zip)
+use command: self.format__address(address1, address2, city, _zip)
+=============================================================================
+Check duplicate in linux and mac
+
+filename: use with location ex: /Users/imac/Desktop/Inspections_Food_CO_Jefferson_CurationReady_20180727_v1.csv
+output_filename ex:  /Users/imac/Desktop/Inspections_Food_CO_Jefferson_CurationReady_20180727_v122_.csv
+
+use command: cat <filename> | sort -t '|' <filename> | uniq > <output_filename>
+=============================================================================
+Clear cache/storage/temp/all
+
+use command: scrapy clear
+
+There displaying all commands in Options
+
+eg: scrapy clear --Cache
+============================================================================
+Custom setting: If u want anything change settings change custom_settings 
+custom_settings = {
+	'COOKIES_ENABLED':True,
+	'COOKIES_DEBUG':True,
+	'HTTPCACHE_ENABLED':False,
+	'DOWNLOAD_DELAY':0.5,
+	'CONCURRENT_REQUESTS': 16,
+	'CONCURRENT_REQUESTS_PER_IP' :10,
+	'RANDOM_PROXY_DISABLED': True,
+	'CONCURRENT_ITEMS':1,
+	'CUSTOM_PROXY_URL':'http://data827:cubes38@149.115.189.71:8888',
+	'JOBDIR' : CustomSettings.getJobDirectory('spider_name'),
+	'DOWNLOADER_MIDDLEWARES' : CustomSettings.appenDownloadMiddlewarevalues({
+            'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+            'Data_scuff.middleware.common.TooManyRequestsRetryMiddleware': 543,
+            }),
+    "PROXY_MODE":0, 
+	}
+=============================================================================
+
+download_folder = os.path.expanduser("~")+"/Downloads/"
+current_file_path = os.path.abspath(os.path.dirname(__file__))
+
+=============================================================================
+Drop duplicate:
+custom_settings = {
+	'ITEM_PIPELINES':CustomSettings.appenAndgetItemPipelinevalues({
+	            'Data_scuff.pipeline.common.DropDuplicateItemPipeline':1
+	            })
+    }
+=============================================================================
+def __init__(self, start='', end=''):
+        self.start = start
+        self.end = end
+
+scrapy crawl il_yellow_pages -a start=AI -a end=BB
+
+from Data_scuff.utils.searchCriteria import SearchCriteria
+for key in SearchCriteria.strRange('A', 'J'):
+    print(key)
+
+print(SearchCriteria.dateRange(20161011, 20180101,freq='3M')) => 3 month
+print(SearchCriteria.dateRange(self.start, self.end, freq='1D', formatter='%m/%d/%Y')) => 1 day
+print(SearchCriteria.numberRange(0000, 9999,3))
+
+When u run
+scrapy crawl fl_okaloosa_buildingpermits -a start=YYYYMMDD -a end=YYYYMMDD
+
+=============================================================================

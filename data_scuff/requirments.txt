@@ -1,0 +1,74 @@
+# Get the source
+$ wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
+$ tar xvf Python-3.6.1.tar.xz
+$ cd Python-3.6.1
+
+# Configure and install
+$ sudo ./configure
+$ sudo make altinstall
+
+sudo apt-get update
+sudo apt-get install python-pip python-lxml python-crypto python-cssselect python-openssl python-w3lib python-twisted python-dev libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev
+sudo pip3 install scrapy
+
+pip3 install tabula-py
+pip3 install -U Django
+pip3 install -U selenium
+
+pip3 install djangorestframework
+pip3 install markdown       # Markdown support for the browsable API.
+pip3 install django-filter
+pip3 install tldextract
+pip3 install PyPDF2
+pip3 install pdf-table-extract 
+pip3 install PyMySQL
+pip3 install python-docx
+
+pip3 install unicode
+pip3 install unidecode
+pip3 install pdfquery
+
+apt-get install poppler-utils
+
+#pyvirtual
+sudo apt-get install xvfb xserver-xephyr vnc4server
+sudo pip3 install pyvirtualdisplay
+# optional
+sudo apt-get install python-pil scrot
+sudo pip3 install pyscreenshot
+sudo pip3 install jinja2
+# optional for examples
+sudo pip3 install entryp
+pip3 install pykafka
+pip3 install humanize
+pip3 install xlrd
+pip3 install autocorrect
+
+#tor proxy
+pip install stem
+
+#inline
+pip install scrapy-inline-requests
+
+#capthca
+sudo apt-get install tesseract-ocr
+
+pip3 install pytesseract
+
+pip3 install -U textblob
+$ python -m textblob.download_corpora
+
+pip3 install html5lib
+
+pip3 install openpyxl
+pip3 install requests-toolbelt
+pip3 install pandas
+pip3 install selenium 
+pip3 install tabula
+pip3 install uszipcode
+pip3 install --upgrade beautifulsoup4
+pip3 install --upgrade html5lib
+pip3 install pyyaml
+pip3 install dynamic_pybloom
+sudo pip3 install --upgrade scrapy
+

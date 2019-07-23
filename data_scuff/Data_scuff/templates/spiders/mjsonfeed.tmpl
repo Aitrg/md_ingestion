@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+
+'''
+Created on $datetime
+TICKET NUMBER -${jiraid}
+@author: $username
+'''
+
+from Data_scuff.extensions.feeds import  JsonFeedSpider
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import MapCompose
+from w3lib.html import remove_tags, replace_escape_chars
+
+from Data_scuff.spiders.${jiraid}.items import ${classname}Item
+from Data_scuff.spiders.__common import CustomSettings
+from Data_scuff.spiders.__common import DataFormatterMixin,LookupDatareaderMixin
+from Data_scuff.utils.utils import Utils
+
+class $classname(JsonFeedSpider,DataFormatterMixin,LookupDatareaderMixin):
+    name = '$name'
+    allowed_domains = ['$domain']
+    start_urls = ['$start_url']
+    
+    {% if feed_expo %}
+    custom_settings = {
+        'FILE_NAME':Utils.getRundateFileName('$classname'),
+        'JIRA_ID':'${jiraid}',
+        'JOBDIR' : CustomSettings.getJobDirectory('$name'),
+        'TOP_HEADER':$top_header,
+        'FIELDS_TO_EXPORT':$feed_expo,
+        'NULL_HEADERS':$null_header
+        }
+    {% else %}
+    custom_settings = CustomSettings.getCustom_settings_WithHeader({
+        'FILE_NAME':Utils.getRundateFileName('$name'),
+        'JOBDIR' : CustomSettings.getJobDirectory('$classname'),
+        'JIRA_ID':'${jiraid}'
+        })
+    {% endif %}
+
+    # Do any adaptations you need here
+    #def adapt_response(self, response):
+    #    return response
+    
+    def parse(self, response):
+        #implement based on your requirement
+        raise NotImplementedError
+        
+    def parse_row(self, response, row):
+        il = ItemLoader(item=${classname}Item())
+        il.default_input_processor = MapCompose(lambda v: v.strip(), remove_tags, replace_escape_chars)
+		#il.add_value('ingestion_timestamp', {{ ingestion_timestamp }})
+        {% for key, value in default_val.items() %}
+        il.add_value('{{ key }}', '{{ value }}')
+		{% endfor %}
+        {% for key, value in val_header.items() %}
+        il.add_value('{{ key }}', row['{{ value }}'])
+		{% endfor %}
+        return il.load_item()
