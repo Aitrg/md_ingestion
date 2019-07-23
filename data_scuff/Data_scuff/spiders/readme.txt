@@ -55,17 +55,15 @@ AI-154 , AI-199 , AI-207
 
 use command :   scrapy crawl wa_benton_franklin_food_inspections
 
-<<<<<<< HEAD
 ========================================= AI-1461 =========================================
 
 use command :   scrapy crawl 1461_al_medical_person_licenses -a start=aa -a end=zz
-=======
+
 ========================================= AI-953 =========================================
 
 use command :   scrapy crawl 953_wa_kittitas_building_permits_1
 				scrapy crawl 953_wa_kittitas_building_permits_2
 				scrapy crawl 953_wa_kittitas_building_permits
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
 
 ========================================= AI-296 =========================================
 
@@ -663,13 +661,10 @@ use command :   scrapy crawl 1206_va_accountancy_licenses_1
 
 use command :   scrapy crawl 1143_national_eima_stucco_licenses
 
-<<<<<<< HEAD
-=======
 ========================================= AI-1462 =========================================
 
 use command :   scrapy crawl 1462_al_medical_license_violations
 
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
 ========================================= AI-1146 =========================================
 
 use command :   scrapy crawl 1146_or_alcohol_server_educator_licenses
@@ -5087,11 +5082,7 @@ Output file is generated in '..\Data_scuff\storage\AI_653'
 
 ========================================= AI-257 =========================================
 
-<<<<<<< HEAD
-use command :   scrapy crawl 257_wi_douglas_building_permits -a start=aa -a end=zz
-=======
-use command :         scrapy crawl 257_wi_douglas_building_permits -a start=aa -a end=zz
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
+use command :      scrapy crawl 257_wi_douglas_building_permits -a start=aa -a end=zz
 
 ========================================= AI-963 =========================================
 

@@ -12,10 +12,6 @@ from w3lib.html import remove_tags, replace_escape_chars
 import scrapy
 import re
 from Data_scuff.utils.searchCriteria import SearchCriteria
-<<<<<<< HEAD
-=======
-
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
 from inline_requests import inline_requests
 from Data_scuff.spiders.AI_257.items import WiDouglasBuildingPermitsSpiderItem
 from Data_scuff.spiders.__common import CommonSpider,CustomSettings
@@ -158,13 +154,8 @@ class WiDouglasBuildingPermitsSpider(CommonSpider):
                         else:
                             mixed_name=mixed_name1
                             dba_name=''
-<<<<<<< HEAD
                         # data_pass={'prop type':prop_type,'parcel number':parcel_no,'municipality':municipality,'location_address_string':prop_address,'mixed_name':mixed_name,'dba_name':'','mixed_subtype':'Owner','mail_address_string':address,'permit_subtype':'','permit_lic_no':'','issue #':'','permit_lic_eff_date':'','permit_lic_status':'','permit_lic_fee':'','inspection_type':'','inspection_date':'','inspection_subtype':'','inspection_pass_fail':'','person':'','inspector_comments':'','permit_lic_desc':'','permit_type':'building_permit','sourceName':'','url':'','ingestion_timestamp':''}
                         # yield self.save_to_csv(response, **data_pass)
-=======
-                        data_pass={'prop type':prop_type,'parcel number':parcel_no,'municipality':municipality,'location_address_string':prop_address,'mixed_name':mixed_name,'dba_name':dba_name,'mixed_subtype':'Owner','mail_address_string':address,'permit_subtype':'','permit_lic_no':'','issue #':'','permit_lic_eff_date':'','permit_lic_status':'','permit_lic_fee':'','inspection_type':'','inspection_date':'','inspection_subtype':'','inspection_pass_fail':'','person':'','inspector_comments':'','permit_lic_desc':'','permit_type':'building_permit','sourceName':'','url':'','ingestion_timestamp':''}
-                        yield self.save_to_csv(response, **data_pass)
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
 
                     insp_rep=parse_third.xpath("//table[@id='ctl00_cphMainApp_SearchDetailsPermit_PermitDetails1_gvApplications']//tr/td[1]/a/@href").extract()
                     if len(insp_rep)>0:
@@ -197,7 +188,6 @@ class WiDouglasBuildingPermitsSpider(CommonSpider):
                                     insp_subtype=parse_insp.xpath('//*[@id="ctl00_cphMainApp_SearchDetailsPermit_PermitDetails1_FormView1_gvActivities"]//tr['+str(i)+']/td[2]/span/text()').extract_first()
                                     inspection_pass_fail=parse_insp.xpath('//*[@id="ctl00_cphMainApp_SearchDetailsPermit_PermitDetails1_FormView1_gvActivities"]//tr['+str(i)+']/td[3]/span/text()').extract_first()
                                     person=str(parse_insp.xpath('//*[@id="ctl00_cphMainApp_SearchDetailsPermit_PermitDetails1_FormView1_gvActivities"]//tr['+str(i)+']/td[4]/span/text()').extract_first()).strip().replace('None','')
-<<<<<<< HEAD
                                     # print ('!)@@@@@@@@@@@@2',person)
                                     inspector_comments=str(parse_insp.xpath('//*[@id="ctl00_cphMainApp_SearchDetailsPermit_PermitDetails1_FormView1_gvActivities"]//tr['+str(i)+']/td[5]/text()').extract_first()).strip().replace('None','')
                                     inspector_comments=re.sub('\s+',' ',inspector_comments)
@@ -206,16 +196,6 @@ class WiDouglasBuildingPermitsSpider(CommonSpider):
 
                             else:
                                 data_pass={'prop type':prop_type,'parcel number':parcel_no,'municipality':municipality,'location_address_string':prop_address,'mixed_name':mixed_name,'dba_name':dba_name,'mixed_subtype':'Owner','mail_address_string':address,'permit_subtype':permit_subtype,'permit_lic_no':appl_no,'issue #':issue_no,'permit_lic_eff_date':issue_date,'permit_lic_status':permit_lic_status,'permit_lic_fee':permit_lic_fee,'inspection_type':'','inspection_date':'','inspection_subtype':'','inspection_pass_fail':'','person':'','inspector_comments':'','permit_lic_desc':permit_lic_desc,'permit_type':'building_permit','sourceName':'','url':'','ingestion_timestamp':''}
-=======
-                                    print ('!)@@@@@@@@@@@@2',person)
-                                    inspector_comments=str(parse_insp.xpath('//*[@id="ctl00_cphMainApp_SearchDetailsPermit_PermitDetails1_FormView1_gvActivities"]//tr['+str(i)+']/td[5]/text()').extract_first()).strip().replace('None','')
-                                    inspector_comments=re.sub('\s+',' ',inspector_comments)
-                                    data_pass={'prop type':prop_type,'parcel number':parcel_no,'municipality':municipality,'location_address_string':prop_address,'mixed_name':'','dba_name':'','mixed_subtype':'','mail_address_string':'','permit_subtype':permit_subtype,'permit_lic_no':'','issue #':issue_no,'permit_lic_eff_date':issue_date,'permit_lic_status':permit_lic_status,'permit_lic_fee':permit_lic_fee,'inspection_type':insp_type,'inspection_date':insp_date,'inspection_subtype':insp_subtype,'inspection_pass_fail':inspection_pass_fail,'person':person,'inspector_comments':inspector_comments,'permit_lic_desc':permit_lic_desc,'permit_type':'building_permit','sourceName':'','url':'','ingestion_timestamp':''}
-                                    yield self.save_to_csv(response, **data_pass)
-
-                            else:
-                                data_pass={'prop type':prop_type,'parcel number':parcel_no,'municipality':municipality,'location_address_string':prop_address,'mixed_name':'','dba_name':'','mixed_subtype':'','mail_address_string':'','permit_subtype':permit_subtype,'permit_lic_no':'','issue #':issue_no,'permit_lic_eff_date':issue_date,'permit_lic_status':permit_lic_status,'permit_lic_fee':permit_lic_fee,'inspection_type':'','inspection_date':'','inspection_subtype':'','inspection_pass_fail':'','person':'','inspector_comments':'','permit_lic_desc':permit_lic_desc,'permit_type':'building_permit','sourceName':'','url':'','ingestion_timestamp':''}
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
                                 yield self.save_to_csv(response, **data_pass)
 
         next_page=str(response.xpath("//*[@id='pager']/table[@border='0']//tr[1]/td/span/following::td[1]/a/@href").extract_first())
@@ -234,11 +214,8 @@ class WiDouglasBuildingPermitsSpider(CommonSpider):
         if len(self.search_element)>0:
             yield scrapy.Request(url=response.url,callback=self.parse_things,dont_filter=True)
     def save_to_csv(self, response,**data_pass):
-<<<<<<< HEAD
         if data_pass['permit_lic_desc']=='' or data_pass['permit_lic_desc']==None:
             data_pass['permit_lic_desc']='Building Permit'
-=======
->>>>>>> c9560f80c1310d70421bd33ad57afc2153148052
         il = ItemLoader(item=WiDouglasBuildingPermitsSpiderItem(),response=response)
         il.default_input_processor = MapCompose(lambda v: v.strip(), remove_tags, replace_escape_chars)
         il.add_value('ingestion_timestamp', Utils.getingestion_timestamp())
